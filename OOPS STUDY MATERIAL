@@ -1,0 +1,277 @@
+ELECTRICITY BILL
+
+import java.util.Scanner;
+
+class ElectricityBillGenerator {
+    int consumerNo;
+    String consumerName;
+    int prevMonthReading;
+    int currMonthReading;
+    String connectionType;
+
+    ElectricityBillGenerator(int consumerNo, String consumerName, int prevMonthReading, int currMonthReading, String connectionType) {
+        this.consumerNo = consumerNo;
+        this.consumerName = consumerName;
+        this.prevMonthReading = prevMonthReading;
+        this.currMonthReading = currMonthReading;
+        this.connectionType = connectionType;
+    }
+
+    double calculateBillAmount() {
+        int unitsConsumed = currMonthReading - prevMonthReading;
+        double billAmount = 0;
+
+        if (connectionType.equalsIgnoreCase("domestic")) {
+            if (unitsConsumed <= 100) {
+                billAmount = unitsConsumed * 1;
+            } else if (unitsConsumed <= 200) {
+                billAmount = 100 + (unitsConsumed - 100) * 2.5;
+            } else if (unitsConsumed <= 500) {
+                billAmount = 100 * 1 + 100 * 2.5 + (unitsConsumed - 200) * 4;
+            } else {
+                billAmount = 100 * 1 + 100 * 2.5 + 300 * 4 + (unitsConsumed - 500) * 6;
+            }
+        } else if (connectionType.equalsIgnoreCase("commercial")) {
+            if (unitsConsumed <= 100) {
+                billAmount = unitsConsumed * 2;
+            } else if (unitsConsumed <= 200) {
+                billAmount = 100 * 2 + (unitsConsumed - 100) * 4.5;
+            } else if (unitsConsumed <= 500) {
+                billAmount = 100 * 2 + 100 * 4.5 + (unitsConsumed - 200) * 6;
+            } else {
+                billAmount = 100 * 2 + 100 * 4.5 + 300 * 6 + (unitsConsumed - 500) * 7;
+            }
+        } else {
+            System.out.println("Invalid connection type.");
+        }
+
+        return billAmount;
+    }
+
+    void displayBill() {
+        System.out.println("Electricity Bill");
+        System.out.println("Consumer No: " + consumerNo);
+        System.out.println("Consumer Name: " + consumerName);
+        System.out.println("Previous Month Reading: " + prevMonthReading);
+        System.out.println("Current Month Reading: " + currMonthReading);
+        System.out.println("Connection Type: " + connectionType);
+        System.out.println("Total Units Consumed: " + (currMonthReading - prevMonthReading));
+        System.out.println("Bill Amount: Rs. " + calculateBillAmount());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Consumer No: ");
+        int consumerNo = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter Consumer Name: ");
+        String consumerName = scanner.nextLine();
+
+        System.out.print("Enter Previous Month Reading: ");
+        int prevMonthReading = scanner.nextInt();
+
+        System.out.print("Enter Current Month Reading: ");
+        int currMonthReading = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+
+        System.out.print("Enter Connection Type (domestic or commercial): ");
+        String connectionType = scanner.nextLine();
+
+        ElectricityBillGenerator billGenerator = new ElectricityBillGenerator(consumerNo, consumerName, prevMonthReading, currMonthReading, connectionType);
+        billGenerator.displayBill();
+
+        scanner.close();
+    }
+}
+
+OUTPUT 
+Enter Consumer No: 12345
+Enter Consumer Name: John Doe
+Enter Previous Month Reading: 500
+Enter Current Month Reading: 700
+Enter Connection Type (domestic or commercial): domestic
+
+Electricity Bill
+Consumer No: 12345
+Consumer Name: John Doe
+Previous Month Reading: 500
+Current Month Reading: 700
+Connection Type: domestic
+Total Units Consumed: 200
+Bill Amount: Rs. 550.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+STUDENT MARK LIST 
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read subject marks
+        int[] marks = new int[5];
+        for (int i = 0; i < 5; i++) {
+            System.out.print("Enter marks for Subject " + (i + 1) + ": ");
+            marks[i] = scanner.nextInt();
+        }
+
+        // Calculate total marks
+        int totalMarks = 0;
+        for (int mark : marks) {
+            totalMarks += mark;
+        }
+
+        // Calculate grade
+        char grade;
+        int gradePoints;
+        if (totalMarks >= 91 && totalMarks <= 100) {
+            grade = 'O';
+            gradePoints = 10;
+        } else if (totalMarks >= 81 && totalMarks <= 90) {
+            grade = 'A';
+            gradePoints = 9;
+        } else if (totalMarks >= 71 && totalMarks <= 80) {
+            grade = 'A';
+            gradePoints = 8;
+        } else if (totalMarks >= 61 && totalMarks <= 70) {
+            grade = 'B';
+            gradePoints = 7;
+        } else if (totalMarks >= 50 && totalMarks <= 60) {
+            grade = 'B';
+            gradePoints = 6;
+        } else {
+            grade = 'RA'; // Below 50 marks
+            gradePoints = 0;
+        }
+
+        // Display the result
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.println("Grade: " + grade);
+        System.out.println("Grade Points: " + gradePoints);
+
+        scanner.close();
+    }
+}
+
+
+OUTPUT 
+Enter marks for Subject 1: 85
+Enter marks for Subject 2: 92
+Enter marks for Subject 3: 76
+Enter marks for Subject 4: 88
+Enter marks for Subject 5: 95
+
+Total Marks: 436
+Grade: A
+Grade Points: 8
+
+
+WRITE A JAVA PROGRAM BY GETTING THE NAME , MARK1, MARK 2 FROM THE USER AND DISPLAY THE MARKS ONLY IF THEY ARE GREATER THAN 90 BY CREATING 5 OBJECTS FOR 5 STUDENTS 
+
+import java.util.Scanner;
+
+class Student {
+    String name;
+    int mark1;
+    int mark2;
+
+    Student(String name, int mark1, int mark2) {
+        this.name = name;
+        this.mark1 = mark1;
+        this.mark2 = mark2;
+    }
+
+    boolean hasMarksGreaterThan90() {
+        return mark1 > 90 && mark2 > 90;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Create an array to store 5 Student objects
+        Student[] students = new Student[5];
+
+        // Input data for each student
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Enter details for Student " + (i + 1));
+            System.out.print("Name: ");
+            String name = scanner.next();
+            System.out.print("Mark 1: ");
+            int mark1 = scanner.nextInt();
+            System.out.print("Mark 2: ");
+            int mark2 = scanner.nextInt();
+
+            // Create a Student object and store it in the array
+            students[i] = new Student(name, mark1, mark2);
+        }
+
+        // Display marks for students with both marks greater than 90
+        System.out.println("\nStudents with both marks greater than 90:");
+        for (Student student : students) {
+            if (student.hasMarksGreaterThan90()) {
+                System.out.println("Name: " + student.name);
+                System.out.println("Mark 1: " + student.mark1);
+                System.out.println("Mark 2: " + student.mark2);
+                System.out.println();
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+OUTPUT 
+Enter details for Student 1
+Name: Alice
+Mark 1: 88
+Mark 2: 94
+
+Enter details for Student 2
+Name: Bob
+Mark 1: 91
+Mark 2: 89
+
+Enter details for Student 3
+Name: Carol
+Mark 1: 92
+Mark 2: 96
+
+Enter details for Student 4
+Name: David
+Mark 1: 87
+Mark 2: 91
+
+Enter details for Student 5
+Name: Eve
+Mark 1: 93
+Mark 2: 92
+
+
+Students with both marks greater than 90:
+Name: Carol
+Mark 1: 92
+Mark 2: 96
+
+Name: Eve
+Mark 1: 93
+Mark 2: 92
+--------------------------------------------------------------------
+https://chat.openai.com/share/764bf9fb-c640-495b-a4ba-b28744529a44
+-------------------------------------------------------------------
